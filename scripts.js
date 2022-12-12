@@ -1,3 +1,10 @@
+
+var currentPlayer=1;
+
+function initNewGame(){
+  setPlayer(currentPlayer);
+}
+
 function setCell(col,row,player){
     let el = document.querySelector(`.gamerow:nth-child(${row})>.cell:nth-child(${col})`);
     el.classList.add(player);
@@ -18,22 +25,21 @@ function getCell(col,row){
     return "";
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  setCell(1, 1, "player1");
-  setCell(2, 2, "player1");
-  setCell(3, 3, "player1");
-  setCell(4, 4, "player1");
+function setPlayer(plyr){
+    currentPlayer=plyr;
+  let el = document.querySelector('#dropzone');
+  if (el.classList.contains("player1")) el.classList.remove("player1");
+  if (el.classList.contains("player2")) el.classList.remove("player2");
+  el.classList.add(`player${plyr}`);   // use template literals with string interpolation
+}
 
-  setCell(4, 4, "player2");
-  setCell(5, 3, "player2");
-  setCell(6, 2, "player2");
-  setCell(7, 1, "player2");
-  
-  clearCell(4,4);
-  clearCell(3,6);
-  clearCell(4,6);
-  
-  console.log(getCell(1,1));
-  console.log(getCell(7,1));
-  
+function dropCol(x){
+  alert("Token dropped in column: "+x);
+  let newPlayer = (currentPlayer==2)?1:2;   // ternary logic statement  (cond)?iftrue:iffalse if cp=2 then return 1 otherwise return 2 and so on.
+  setPlayer(newPlayer);  
+}
+
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  initNewGame();
 });

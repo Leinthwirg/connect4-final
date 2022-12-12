@@ -7,7 +7,7 @@ h1 {
     width:72vh;
     height: 72vh;
 }
-.gamerow{
+.gamerow,#dropzone{
     display:grid;
     height: 11vh;
     width: 77vh;
@@ -23,10 +23,20 @@ h1 {
     background:white;
 }
 
-.player1 {
+.player1,#dropzone.player1>.cell:hover {
   background-color: #ed2f28; 
 }
 
-.player2 {
+.player2,#dropzone.player2>.cell:hover {
   background-color: #ffea00;
+}
+
+#dropzone{
+    background:lightgrey;
+    border:none;
+    height:10vh;
+    border: 2px solid white;
+}
+#dropzone:hover{
+    border:2px solid black;
 }
