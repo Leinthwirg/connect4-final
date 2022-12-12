@@ -1,0 +1,32 @@
+
+h1 {
+  text-align: center;
+}
+
+#main{
+    width:72vh;
+    height: 72vh;
+}
+.gamerow{
+    display:grid;
+    height: 11vh;
+    width: 77vh;
+    grid-template-columns: repeat(7, 10vh);
+    background:blue;
+    justify-content: center;
+    grid-gap: 1vh;
+}
+.cell{
+    border-radius:60%;  
+    width: 10vh;
+    height: 10vh;
+    background:white;
+}
+
+.red {
+  background-color: #ed2f28; 
+}
+
+.yellow {
+  background-color: #ffea00;
+}
