@@ -12,7 +12,7 @@ function setCell(col,row,player){
 }
 
 function clearCell(col,row){
-    let el = document.querySelector(`.gamerow:nth-child(${row})>.cell:nth-child(${col})`);
+    let el = document.querySelector(`.gamerow:nth-child(${row})>.cell:nth-child(${col})`);  // again with template literals
     if (el.classList.contains("player1")) el.classList.remove("player1");
     if (el.classList.contains("player2")) el.classList.remove("player2");
 }
@@ -34,9 +34,18 @@ function setPlayer(plyr){
 }
 
 function dropCol(x){
-  alert("Token dropped in column: "+x);
+  let y = findBottom(x);
+  setCell(x,findBottom(x),`player${currentPlayer}`);
   let newPlayer = (currentPlayer==2)?1:2;   // ternary logic statement  (cond)?iftrue:iffalse if cp=2 then return 1 otherwise return 2 and so on.
   setPlayer(newPlayer);  
+}
+
+function findBottom(x){
+  for (y=1;y<=6;y++){
+    console.log(getCell(x,y));
+    if (getCell(x,y)!="") return y-1; 
+  }
+  return 6;
 }
 
 
