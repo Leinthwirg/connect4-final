@@ -20,9 +20,17 @@
 
 <body>
   <div id="main">
-    <h1>
-      Connect 4
-    </h1>
+    <div class='ctlpanel'>
+      <div class='score'>
+        <span>Player 1:</span><br>
+        <span>Player 2:</span>
+      </div>
+      <div class='msgs'>Connect 4</div>    
+      <div class='buttons'>
+        <button>New Game</button><br>
+        <button>Clear Score</button>
+      </div>        
+    </div>
     <div id="dropzone" class="player1">
       <div class="cell" onclick="dropCol(1)"></div>
       <div class="cell" onclick="dropCol(2)"></div>
@@ -81,8 +89,8 @@
       <div class="gamerow">     <!-- row 6 -->
         <div class="cell"></div>
         <div class="cell"></div>
-        <div class="cell player1"></div>
-        <div class="cell player2"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>

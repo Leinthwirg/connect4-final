@@ -40,3 +40,16 @@ h1 {
 #dropzone:hover{
     border:2px solid black;
 }
+.ctlpanel{
+  display: grid;
+  grid-template-columns: 20vh 30vh 20vh;
+  border: 1px solid black;
+  width: 77vh;
+}
+
+.msgs{
+  text-align:center;
+}
+.buttons{
+  text-align:right;
+}
