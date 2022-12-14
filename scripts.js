@@ -1,9 +1,20 @@
-const rows = 6
-const columns = 7
+const ROWS = 6
+const COLUMNS = 7
 var currentPlayer=1;
+var scorePlayer1=0;
+var scorePlayer2=0;
 
 function initNewGame(){
   setPlayer(currentPlayer);
+  updateScore();
+}
+
+function updateScore(){
+  const EL = document.querySelector(".score");
+  const innerHTML = 
+        `<span>Player 1: ${scorePlayer1}</span><br>
+         <span>Player 2: ${scorePlayer2}</span>`;
+  EL.setHTML(innerHTML);
 }
 
 function setCell(col,row,player){
@@ -31,6 +42,7 @@ function setPlayer(plyr){
   let el = document.querySelector('#dropzone');
   if (el.classList.contains("player1")) el.classList.remove("player1");
   if (el.classList.contains("player2")) el.classList.remove("player2");
+  if (el.classList.contains("player2")) el.classList.remove("player0");
   el.classList.add(`player${plyr}`);   // use template literals with string interpolation
 }
 
@@ -40,13 +52,28 @@ function dropCol(x){
     setCell(x,findBottom(x),`player${currentPlayer}`);
     const winner=checkWinner();
     if (winner !==""){
-      alert(winner +"won!");
-      
+       switch (winner) {
+         case 'player1':
+           scorePlayer1++;
+           break;
+         case 'player2':
+           scorePlayer2++;
+           break;
+       }
+      updateScore();
+      displayMessage(winner+" won!");
+      setPlayer(0);
     }else{
       let newPlayer = (currentPlayer==2)?1:2;   // ternary logic statement  Flip flops between first and second player
       setPlayer(newPlayer);       
     }
   }
+}
+
+
+function displayMessage(innerHTML){
+    el=document.querySelector(".msgs");
+    el.setHTML(innerHTML);
 }
 
 function findBottom(x){ // add to Y to go down the column, if it runs in to something in cell, go back one.
@@ -58,8 +85,8 @@ function findBottom(x){ // add to Y to go down the column, if it runs in to some
 
 function checkWinner() {
   //horizontal
-  for (let r = 1; r <= rows; r++) {
-    for (let c = 1; c <= columns - 3; c++){
+  for (let r = 1; r <= ROWS; r++) {
+    for (let c = 1; c <= COLUMNS - 3; c++){
       if (getCell(c, r) != '') {
         if (getCell(c, r) == getCell(c+1, r) && getCell(c+1, r) == getCell(c+2, r) && getCell(c+2, r) == getCell(c+3, r)) {
           return getCell(c,r); 
@@ -68,8 +95,8 @@ function checkWinner() {
     }
   }
    //vertical (columns)
-    for (let c = 1; c <= columns; c++) {
-    for (let r = 1; r <= rows - 3; r++){
+    for (let c = 1; c <= COLUMNS; c++) {
+    for (let r = 1; r <= ROWS - 3; r++){
       if (getCell(c, r) != '') {
         if (getCell(c, r) == getCell(c, r+1) && getCell(c, r+1) == getCell(c, r+2) && getCell(c, r+2) == getCell(c, r+3)) {
           //setWinner(c, r);
@@ -80,8 +107,8 @@ function checkWinner() {
   }
   
     //diagonal 1
-  for (let r = 1; r <= rows - 3; r++) {
-    for (let c = 1; c <= columns - 3; c++){
+  for (let r = 1; r <= ROWS - 3; r++) {
+    for (let c = 1; c <= COLUMNS - 3; c++){
       if (getCell(c, r) != '') {
         if (getCell(c, r) == getCell(c+1, r+1) && getCell(c+1, r+1) == getCell(c+2, r+2) && getCell(c+2, r+2) == getCell(c+3, r+3)) {
           return getCell(c,r); 
@@ -91,8 +118,8 @@ function checkWinner() {
   }
   
       //diagonal 2
-  for (let r = 4; r <= rows; r++) {
-    for (let c = 1; c <= columns - 3; c++){
+  for (let r = 4; r <= ROWS; r++) {
+    for (let c = 1; c <= COLUMNS - 3; c++){
       if (getCell(c, r) != '') {
         if (getCell(c, r) == getCell(c+1, r-1) && getCell(c+1, r-1) == getCell(c+2, r-2) && getCell(c+2, r-2) == getCell(c+3, r-3)) {
           return getCell(c,r); 
@@ -101,8 +128,16 @@ function checkWinner() {
     }
   }
   return "";
-}
+} 
+// checkWinner structure from https://github.com/ImKennyYip/Connect4 / youtube. Modified to fit. 
 
 document.addEventListener("DOMContentLoaded", function(event) {
   initNewGame();
 });
+
+// inspirations & codepens that helped me understand the logical thinking to build a connect 4 game. 
+// https://codepen.io/jeffleu/pen/Kgbewj 
+// https://codepen.io/LOUBASSOU/pen/qwBdGN 
+// https://codepen.io/caleboleary/pen/reqwzV
+// https://www.youtube.com/watch?v=4ARsthVnCTg 
+// https://www.youtube.com/watch?v=Hi5hEH1KNEc 

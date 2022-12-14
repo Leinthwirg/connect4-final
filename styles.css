@@ -31,6 +31,10 @@ h1 {
   background-color: #ffea00;
 }
 
+.player0,#dropzone.player0>.cell:hover {
+  background-color: white;
+}
+
 #dropzone{
     background:lightgrey;
     border:none;
