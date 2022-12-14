@@ -27,10 +27,8 @@ function newGame(){   // handle the new game button
 
 function updateScore(){
   const EL = document.querySelector(".score");          // 
-  const innerHTML =                                     // template strings are kind of neat in that you can have returns in them.
-        `<span>Player 1: ${scorePlayer1}</span><br>
-         <span>Player 2: ${scorePlayer2}</span>`;
-  EL.setHTML(innerHTML);
+  const innerHTML =  "Player 1: "+scorePlayer1+"\rPlayer 2: "+scorePlayer2;
+  EL.innerText=innerHTML;
 }
 
 function setCell(col,row,player){
@@ -61,7 +59,7 @@ function setPlayer(plyr){
   if (el.classList.contains("player0")) el.classList.remove("player0");  // nobody - so kill the hover effect
   el.classList.add(`player${plyr}`);   // use template literals with string interpolation
   if (plyr>0){
-    displayMessage(`It is Player ${plyr}'s turn.`);
+    displayMessage("It is Player "+plyr+"'s turn.");
   }
 }
 
@@ -81,7 +79,7 @@ function dropCol(x){
            break;
        }
       updateScore();
-      displayMessage(`<span>Player ${currentPlayer} Won!</span><br><span>Press New Game to play again</span>`);
+      displayMessage(`Player ${currentPlayer} Won!\rPress New Game to play again`);
       lastWinner = currentPlayer;
       setPlayer(0);
     }else{
@@ -94,7 +92,7 @@ function dropCol(x){
 
 function displayMessage(innerHTML){
     el=document.querySelector(".msgs");
-    el.setHTML(innerHTML);
+    el.innerText=innerHTML;
 }
 
 function findBottom(x){ // add to Y to go down the column, if it runs in to something in cell, go back one.
