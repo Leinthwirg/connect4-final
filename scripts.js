@@ -66,6 +66,7 @@ function setPlayer(plyr){
 }
 
 function dropCol(x){
+  if (currentPlayer==0)return;
   let y = findBottom(x);
   if (y>0){
     setCell(x,findBottom(x),`player${currentPlayer}`);
