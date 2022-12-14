@@ -3,15 +3,31 @@ const COLUMNS = 7
 var currentPlayer=1;
 var scorePlayer1=0;
 var scorePlayer2=0;
+var lastWinner=0;
 
 function initNewGame(){
   setPlayer(currentPlayer);
   updateScore();
 }
 
+function clearScore(){
+  scorePlayer1=0;
+  scorePlayer2=0;
+  newGame();
+  updateScore();
+}
+function newGame(){   // handle the new game button 
+  for (row=1;row<=ROWS;row++){
+    for(col=1;col<=COLUMNS;col++){
+      clearCell(col,row);
+    }
+  }
+  setPlayer(lastWinner==2?1:2);  //let the loser go first.  It's their turn anyways.
+}
+
 function updateScore(){
-  const EL = document.querySelector(".score");
-  const innerHTML = 
+  const EL = document.querySelector(".score");          // 
+  const innerHTML =                                     // template strings are kind of neat in that you can have returns in them.
         `<span>Player 1: ${scorePlayer1}</span><br>
          <span>Player 2: ${scorePlayer2}</span>`;
   EL.setHTML(innerHTML);
@@ -42,8 +58,11 @@ function setPlayer(plyr){
   let el = document.querySelector('#dropzone');
   if (el.classList.contains("player1")) el.classList.remove("player1");
   if (el.classList.contains("player2")) el.classList.remove("player2");
-  if (el.classList.contains("player2")) el.classList.remove("player0");
+  if (el.classList.contains("player0")) el.classList.remove("player0");  // nobody - so kill the hover effect
   el.classList.add(`player${plyr}`);   // use template literals with string interpolation
+  if (plyr>0){
+    displayMessage(`It is Player ${plyr}'s turn.`);
+  }
 }
 
 function dropCol(x){
@@ -61,7 +80,8 @@ function dropCol(x){
            break;
        }
       updateScore();
-      displayMessage(winner+" won!");
+      displayMessage(`<span>Player ${currentPlayer} Won!</span><br><span>Press New Game to play again</span>`);
+      lastWinner = currentPlayer;
       setPlayer(0);
     }else{
       let newPlayer = (currentPlayer==2)?1:2;   // ternary logic statement  Flip flops between first and second player
